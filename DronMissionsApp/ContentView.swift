@@ -1,24 +1,16 @@
-//
-//  ContentView.swift
-//  DronMissionsApp
-//
-//  Created by Анастасия Сергеева on 17.05.2025.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            MapView()
+                .tabItem {
+                    Label("Карта", systemImage: "map")
+                }
+            MissionsView()
+                .tabItem {
+                    Label("Миссии", systemImage: "list.bullet")
+                }
         }
-        .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }

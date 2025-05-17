@@ -14,6 +14,15 @@
 		5D72EEC22DD8B1100097CA9D /* DronMissionsAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEC12DD8B1100097CA9D /* DronMissionsAppTests.swift */; };
 		5D72EECC2DD8B1100097CA9D /* DronMissionsAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EECB2DD8B1100097CA9D /* DronMissionsAppUITests.swift */; };
 		5D72EECE2DD8B1100097CA9D /* DronMissionsAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EECD2DD8B1100097CA9D /* DronMissionsAppUITestsLaunchTests.swift */; };
+		5D72EEE52DD8B7C40097CA9D /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEDA2DD8B7C40097CA9D /* Mission.swift */; };
+		5D72EEE62DD8B7C40097CA9D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEDC2DD8B7C40097CA9D /* LocationManager.swift */; };
+		5D72EEE72DD8B7C40097CA9D /* MissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEDD2DD8B7C40097CA9D /* MissionManager.swift */; };
+		5D72EEE82DD8B7C40097CA9D /* AddMissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEDF2DD8B7C40097CA9D /* AddMissionView.swift */; };
+		5D72EEE92DD8B7C40097CA9D /* EditMissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEE02DD8B7C40097CA9D /* EditMissionView.swift */; };
+		5D72EEEA2DD8B7C40097CA9D /* EditPointsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEE12DD8B7C40097CA9D /* EditPointsList.swift */; };
+		5D72EEEB2DD8B7C40097CA9D /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEE22DD8B7C40097CA9D /* MapView.swift */; };
+		5D72EEEC2DD8B7C40097CA9D /* MissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEE32DD8B7C40097CA9D /* MissionsView.swift */; };
+		5D72EEF02DD8BD640097CA9D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5D72EEEF2DD8BD640097CA9D /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +53,15 @@
 		5D72EEC72DD8B1100097CA9D /* DronMissionsAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DronMissionsAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D72EECB2DD8B1100097CA9D /* DronMissionsAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DronMissionsAppUITests.swift; sourceTree = "<group>"; };
 		5D72EECD2DD8B1100097CA9D /* DronMissionsAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DronMissionsAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5D72EEDA2DD8B7C40097CA9D /* Mission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
+		5D72EEDC2DD8B7C40097CA9D /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		5D72EEDD2DD8B7C40097CA9D /* MissionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionManager.swift; sourceTree = "<group>"; };
+		5D72EEDF2DD8B7C40097CA9D /* AddMissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMissionView.swift; sourceTree = "<group>"; };
+		5D72EEE02DD8B7C40097CA9D /* EditMissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMissionView.swift; sourceTree = "<group>"; };
+		5D72EEE12DD8B7C40097CA9D /* EditPointsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPointsList.swift; sourceTree = "<group>"; };
+		5D72EEE22DD8B7C40097CA9D /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		5D72EEE32DD8B7C40097CA9D /* MissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionsView.swift; sourceTree = "<group>"; };
+		5D72EEEF2DD8BD640097CA9D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,10 +112,14 @@
 		5D72EEAF2DD8B10D0097CA9D /* DronMissionsApp */ = {
 			isa = PBXGroup;
 			children = (
+				5D72EEDB2DD8B7C40097CA9D /* Models */,
+				5D72EEDE2DD8B7C40097CA9D /* ViewModels */,
+				5D72EEE42DD8B7C40097CA9D /* Views */,
 				5D72EEB02DD8B10D0097CA9D /* DronMissionsAppApp.swift */,
 				5D72EEB22DD8B10D0097CA9D /* ContentView.swift */,
 				5D72EEB42DD8B10F0097CA9D /* Assets.xcassets */,
 				5D72EEB62DD8B10F0097CA9D /* Preview Content */,
+				5D72EEEF2DD8BD640097CA9D /* .gitignore */,
 			);
 			path = DronMissionsApp;
 			sourceTree = "<group>";
@@ -125,6 +147,35 @@
 				5D72EECD2DD8B1100097CA9D /* DronMissionsAppUITestsLaunchTests.swift */,
 			);
 			path = DronMissionsAppUITests;
+			sourceTree = "<group>";
+		};
+		5D72EEDB2DD8B7C40097CA9D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5D72EEDA2DD8B7C40097CA9D /* Mission.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5D72EEDE2DD8B7C40097CA9D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5D72EEDC2DD8B7C40097CA9D /* LocationManager.swift */,
+				5D72EEDD2DD8B7C40097CA9D /* MissionManager.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		5D72EEE42DD8B7C40097CA9D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5D72EEDF2DD8B7C40097CA9D /* AddMissionView.swift */,
+				5D72EEE02DD8B7C40097CA9D /* EditMissionView.swift */,
+				5D72EEE12DD8B7C40097CA9D /* EditPointsList.swift */,
+				5D72EEE22DD8B7C40097CA9D /* MapView.swift */,
+				5D72EEE32DD8B7C40097CA9D /* MissionsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D72EEB82DD8B10F0097CA9D /* Preview Assets.xcassets in Resources */,
+				5D72EEF02DD8BD640097CA9D /* .gitignore in Resources */,
 				5D72EEB52DD8B10F0097CA9D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,8 +309,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D72EEE62DD8B7C40097CA9D /* LocationManager.swift in Sources */,
+				5D72EEE82DD8B7C40097CA9D /* AddMissionView.swift in Sources */,
+				5D72EEE72DD8B7C40097CA9D /* MissionManager.swift in Sources */,
+				5D72EEE52DD8B7C40097CA9D /* Mission.swift in Sources */,
 				5D72EEB32DD8B10D0097CA9D /* ContentView.swift in Sources */,
 				5D72EEB12DD8B10D0097CA9D /* DronMissionsAppApp.swift in Sources */,
+				5D72EEEA2DD8B7C40097CA9D /* EditPointsList.swift in Sources */,
+				5D72EEEC2DD8B7C40097CA9D /* MissionsView.swift in Sources */,
+				5D72EEEB2DD8B7C40097CA9D /* MapView.swift in Sources */,
+				5D72EEE92DD8B7C40097CA9D /* EditMissionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
