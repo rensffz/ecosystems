@@ -5,7 +5,7 @@ struct ContentView: View {
         TabView {
             MapView()
                 .tabItem {
-                    Label("Карта", systemImage: "map")
+                    Label("Я", systemImage: "person.circle")
                 }
             MissionsView()
                 .tabItem {

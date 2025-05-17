@@ -62,6 +62,7 @@
 		5D72EEE22DD8B7C40097CA9D /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		5D72EEE32DD8B7C40097CA9D /* MissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionsView.swift; sourceTree = "<group>"; };
 		5D72EEEF2DD8BD640097CA9D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5D72EEF12DD8C8F70097CA9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +113,7 @@
 		5D72EEAF2DD8B10D0097CA9D /* DronMissionsApp */ = {
 			isa = PBXGroup;
 			children = (
+				5D72EEF12DD8C8F70097CA9D /* Info.plist */,
 				5D72EEDB2DD8B7C40097CA9D /* Models */,
 				5D72EEDE2DD8B7C40097CA9D /* ViewModels */,
 				5D72EEE42DD8B7C40097CA9D /* Views */,
@@ -485,6 +487,8 @@
 				DEVELOPMENT_TEAM = Q2AP78H3Q5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DronMissionsApp/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Мы используем Вашу геопозицию для отображения на карте.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -514,6 +518,8 @@
 				DEVELOPMENT_TEAM = Q2AP78H3Q5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DronMissionsApp/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Мы используем Вашу геопозицию для отображения на карте.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
