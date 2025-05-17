@@ -12,22 +12,33 @@ struct AddMissionView: View {
 
     var body: some View {
         VStack {
-            Map(position: $cameraPosition) {
-                ForEach(points) { coord in
-                    Annotation("", coordinate: coord) {
-                        Image(systemName: "mappin")
-                            .foregroundColor(.red)
+            GeometryReader { geo in
+                MapReader { proxy in
+                    Map(position: $cameraPosition) {
+                        ForEach(points) { coord in
+                            Annotation("", coordinate: coord) {
+                                Image(systemName: "mappin")
+                                    .foregroundColor(.red)
+                            }
+                        }
                     }
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onEnded { gesture in
+                                let tapLocation = gesture.location
+                                let screenLocation = CGPoint(
+                                    x: tapLocation.x,
+                                    y: tapLocation.y
+                                )
+
+                                if let coordinate = proxy.convert(screenLocation, from: .local) {
+                                    points.append(coordinate)
+                                }
+                            }
+                    )
+                    .frame(height: 300)
                 }
             }
-            .gesture(
-                TapGesture().onEnded {
-                    let center = getCenterCoordinate()
-                    if center.latitude != 0 && center.longitude != 0 {
-                        points.append(center)
-                    }
-                }
-            )
             .frame(height: 300)
 
             TextField("Название миссии", text: $missionName)
@@ -43,16 +54,6 @@ struct AddMissionView: View {
             .padding()
         }
         .padding()
-    }
-
-    // Жёсткий костыль без let, просто вытаскиваем значения вручную через String-описание
-    func getCenterCoordinate() -> CLLocationCoordinate2D {
-        let positionString = String(describing: cameraPosition)
-        if positionString.contains("center:") {
-            // Тут ты можешь зажёстко вернуть свои координаты (например, Москва)
-            return CLLocationCoordinate2D(latitude: 55.75, longitude: 37.62)
-        }
-        return CLLocationCoordinate2D(latitude: 0, longitude: 0)
     }
 }
 
