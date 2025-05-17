@@ -8,15 +8,21 @@ struct MissionDetailView: View {
 
     @State private var showingEdit = false
 
-    // Для симуляции
+    // Симуляция
     @State private var isSimulating = false
-    @State private var currentPointIndex = 0
+    @State private var isPaused = false
+    @State private var currentIndex = 0
     @State private var dronePosition: CLLocationCoordinate2D?
+
+    // Новое: выделенная точка (индекс)
+    @State private var selectedPointIndex: Int? = nil
+
     @State private var cameraPosition = MapCameraPosition.region(
         MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 55.75, longitude: 37.62),
                            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
     )
-    @State private var simulationTimer: Timer?
+
+    let animationDuration: Double = 1.0
 
     var body: some View {
         VStack {
@@ -24,65 +30,100 @@ struct MissionDetailView: View {
                 .font(.headline)
                 .padding()
 
-            // Карта с положением дрона
             Map(position: $cameraPosition) {
-                // Точки миссии
-                ForEach(mission.points) { coord in
+                ForEach(mission.points.indices, id: \.self) { i in
+                    let coord = mission.points[i]
                     Annotation("", coordinate: coord) {
-                        Image(systemName: "mappin.circle.fill")
-                            .foregroundColor(.red)
+                        // Маркер выделенной точки — крупнее и краснее
+                        if selectedPointIndex == i {
+                            Image(systemName: "mappin.circle.fill")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(.red)
+                                .shadow(radius: 5)
+                                .zIndex(1)
+                        } else {
+                            Image(systemName: "mappin.circle.fill")
+                                .foregroundColor(.red)
+                                .frame(width: 24, height: 24)
+                        }
                     }
                 }
 
-                // Аннотация дрона, если симуляция запущена
                 if let dronePos = dronePosition {
                     Annotation("", coordinate: dronePos) {
-                        Image(systemName: "airplane")
-                            .foregroundColor(.blue)
-                            .font(.title)
+                        Image("icons8-quadcopter-24")
+                            .resizable()
+                            .frame(width: 24, height: 24)
                     }
                 }
             }
             .frame(height: 300)
             .onAppear {
-                // Инициализируем камеру на первую точку миссии, если есть
                 if let first = mission.points.first {
-                    cameraPosition = .region(
-                        MKCoordinateRegion(center: first,
-                                           span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
-                    )
                     dronePosition = first
-                    currentPointIndex = 0
+                    currentIndex = 0
+                    cameraPosition = .region(MKCoordinateRegion(
+                        center: first,
+                        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                    ))
                 }
             }
 
             List {
                 ForEach(mission.points.indices, id: \.self) { i in
-                    Text("Точка \(i + 1): \(mission.points[i].latitude), \(mission.points[i].longitude)")
-                        .font(.caption)
+                    Button {
+                        // При нажатии на точку из списка выделяем и центрируем карту
+                        selectedPointIndex = i
+                        let coord = mission.points[i]
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            cameraPosition = .region(MKCoordinateRegion(
+                                center: coord,
+                                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01) // приближаем
+                            ))
+                        }
+                    } label: {
+                        Text("Точка \(i + 1): \(mission.points[i].latitude), \(mission.points[i].longitude)")
+                            .font(.caption)
+                            .foregroundColor(selectedPointIndex == i ? .blue : .primary)
+                    }
                 }
             }
 
             Spacer()
 
-            HStack {
-                Button(isSimulating ? "Остановить симуляцию" : "Старт симуляции") {
-                    if isSimulating {
-                        stopSimulation()
+            HStack(spacing: 16) {
+                if isSimulating {
+                    if isPaused {
+                        Button("Продолжить") {
+                            isPaused = false
+                            moveToNextPoint()
+                        }
                     } else {
+                        Button("Пауза") {
+                            isPaused = true
+                        }
+                    }
+
+                    Button("Остановить") {
+                        stopSimulation()
+                    }
+                    .foregroundColor(.red)
+
+                } else {
+                    Button("Старт симуляции") {
                         startSimulation()
                     }
+                    .disabled(mission.points.count < 2)
                 }
-                .padding()
-                .disabled(mission.points.isEmpty)
 
                 Spacer()
 
                 Button("Изменить") {
                     showingEdit = true
                 }
-                .padding()
             }
+            .padding()
         }
         .sheet(isPresented: $showingEdit) {
             AddMissionView(manager: manager, editingMission: mission)
@@ -92,43 +133,50 @@ struct MissionDetailView: View {
         }
     }
 
+    // MARK: - Симуляция
+
     func startSimulation() {
-        guard !mission.points.isEmpty else { return }
+        guard mission.points.count > 1 else { return }
 
         isSimulating = true
-        currentPointIndex = 0
+        isPaused = false
+        currentIndex = 0
         dronePosition = mission.points[0]
-        cameraPosition = .region(
-            MKCoordinateRegion(center: mission.points[0],
-                               span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
-        )
-
-        simulationTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
-            moveToNextPoint()
-        }
+        moveToNextPoint()
     }
 
     func stopSimulation() {
         isSimulating = false
-        simulationTimer?.invalidate()
-        simulationTimer = nil
+        isPaused = false
+        currentIndex = 0
+        dronePosition = mission.points.first
     }
 
     func moveToNextPoint() {
-        guard isSimulating else { return }
-        let nextIndex = currentPointIndex + 1
-        if nextIndex < mission.points.count {
-            withAnimation(.linear(duration: 1.5)) {
-                dronePosition = mission.points[nextIndex]
-                cameraPosition = .region(
-                    MKCoordinateRegion(center: mission.points[nextIndex],
-                                       span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
-                )
-            }
-            currentPointIndex = nextIndex
-        } else {
-            // Конец маршрута — останавливаем симуляцию
-            stopSimulation()
+        guard isSimulating, !isPaused else { return }
+
+        // Если мы уже на последней точке, то останавливаем симуляцию
+        if currentIndex >= mission.points.count - 1 {
+            isSimulating = false
+            isPaused = false
+            return
+        }
+
+        let nextIndex = currentIndex + 1
+        let nextPoint = mission.points[nextIndex]
+
+        withAnimation(.linear(duration: animationDuration)) {
+            dronePosition = nextPoint
+            cameraPosition = .region(MKCoordinateRegion(
+                center: nextPoint,
+                span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+            ))
+        }
+
+        currentIndex = nextIndex
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+            moveToNextPoint()
         }
     }
 }
