@@ -5,7 +5,6 @@ struct AddMissionView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var manager: MissionManager
 
-    // Новое: поддержка редактирования
     var editingMission: Mission? = nil
 
     @State private var missionName: String = ""
@@ -13,6 +12,20 @@ struct AddMissionView: View {
     @State private var cameraPosition = MapCameraPosition.region(
         MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 55.75, longitude: 37.62),
                            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)))
+
+    private var trimmedName: String {
+        missionName.trimmingCharacters(in: .whitespaces)
+    }
+
+    private var isNameUnique: Bool {
+        !manager.missions.contains {
+            $0.name.lowercased() == trimmedName.lowercased() && $0.id != editingMission?.id
+        }
+    }
+
+    private var isAddDisabled: Bool {
+        trimmedName.isEmpty || !isNameUnique || points.isEmpty
+    }
 
     var body: some View {
         VStack {
@@ -48,12 +61,28 @@ struct AddMissionView: View {
             }
             .frame(height: 300)
 
-            TextField("Название миссии", text: $missionName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
+            VStack(alignment: .leading, spacing: 4) {
+                TextField("Название миссии", text: $missionName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
 
-            // Перетаскиваемый список точек
-            EditPointsList(points: $points)
+                if !isNameUnique && !trimmedName.isEmpty {
+                    Text("Это имя уже занято")
+                        .foregroundColor(.red)
+                        .font(.caption)
+                }
+            }
+            .padding(.horizontal)
+
+            VStack(alignment: .leading) {
+                EditPointsList(points: $points)
+
+                if points.isEmpty {
+                    Text("Добавьте хотя бы одну точку на карту")
+                        .foregroundColor(.red)
+                        .font(.caption)
+                        .padding(.leading)
+                }
+            }
 
             HStack {
                 Button("Отменить") {
@@ -66,13 +95,13 @@ struct AddMissionView: View {
 
                 Button(editingMission != nil ? "Сохранить" : "Добавить") {
                     if let mission = editingMission {
-                        manager.updateMission(original: mission, newName: missionName, newPoints: points)
+                        manager.updateMission(original: mission, newName: trimmedName, newPoints: points)
                     } else {
-                        manager.addMission(name: missionName, points: points)
+                        manager.addMission(name: trimmedName, points: points)
                     }
                     dismiss()
                 }
-                .disabled(missionName.trimmingCharacters(in: .whitespaces).isEmpty || !isNameUnique())
+                .disabled(isAddDisabled)
                 .padding()
             }
         }
@@ -82,13 +111,6 @@ struct AddMissionView: View {
                 missionName = mission.name
                 points = mission.points
             }
-        }
-    }
-
-    func isNameUnique() -> Bool {
-        let trimmed = missionName.trimmingCharacters(in: .whitespaces)
-        return !manager.missions.contains {
-            $0.name == trimmed && $0.id != editingMission?.id
         }
     }
 }
