@@ -4,6 +4,10 @@ import MapKit
 struct AddMissionView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var manager: MissionManager
+
+    // Новое: поддержка редактирования
+    var editingMission: Mission? = nil
+
     @State private var missionName: String = ""
     @State private var points: [CLLocationCoordinate2D] = []
     @State private var cameraPosition = MapCameraPosition.region(
@@ -23,16 +27,19 @@ struct AddMissionView: View {
                         }
                     }
                     .gesture(
-                        DragGesture(minimumDistance: 0)
-                            .onEnded { gesture in
-                                let tapLocation = gesture.location
-                                let screenLocation = CGPoint(
-                                    x: tapLocation.x,
-                                    y: tapLocation.y
-                                )
-
-                                if let coordinate = proxy.convert(screenLocation, from: .local) {
-                                    points.append(coordinate)
+                        LongPressGesture(minimumDuration: 0.5).sequenced(before: DragGesture(minimumDistance: 0))
+                            .onEnded { value in
+                                switch value {
+                                case .second(true, let drag):
+                                    if let drag = drag {
+                                        let tapLocation = drag.location
+                                        let screenLocation = CGPoint(x: tapLocation.x, y: tapLocation.y)
+                                        if let coordinate = proxy.convert(screenLocation, from: .local) {
+                                            points.append(coordinate)
+                                        }
+                                    }
+                                default:
+                                    break
                                 }
                             }
                     )
@@ -45,15 +52,44 @@ struct AddMissionView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
 
+            // Перетаскиваемый список точек
             EditPointsList(points: $points)
 
-            Button("Добавить") {
-                manager.addMission(name: missionName, points: points)
-                dismiss()
+            HStack {
+                Button("Отменить") {
+                    dismiss()
+                }
+                .foregroundColor(.red)
+                .padding()
+
+                Spacer()
+
+                Button(editingMission != nil ? "Сохранить" : "Добавить") {
+                    if let mission = editingMission {
+                        manager.updateMission(original: mission, newName: missionName, newPoints: points)
+                    } else {
+                        manager.addMission(name: missionName, points: points)
+                    }
+                    dismiss()
+                }
+                .disabled(missionName.trimmingCharacters(in: .whitespaces).isEmpty || !isNameUnique())
+                .padding()
             }
-            .padding()
         }
         .padding()
+        .onAppear {
+            if let mission = editingMission {
+                missionName = mission.name
+                points = mission.points
+            }
+        }
+    }
+
+    func isNameUnique() -> Bool {
+        let trimmed = missionName.trimmingCharacters(in: .whitespaces)
+        return !manager.missions.contains {
+            $0.name == trimmed && $0.id != editingMission?.id
+        }
     }
 }
 

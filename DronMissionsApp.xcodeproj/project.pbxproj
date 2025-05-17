@@ -23,6 +23,8 @@
 		5D72EEEB2DD8B7C40097CA9D /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEE22DD8B7C40097CA9D /* MapView.swift */; };
 		5D72EEEC2DD8B7C40097CA9D /* MissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEE32DD8B7C40097CA9D /* MissionsView.swift */; };
 		5D72EEF02DD8BD640097CA9D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5D72EEEF2DD8BD640097CA9D /* .gitignore */; };
+		5D72EF2B2DD8D7840097CA9D /* MissionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EF2A2DD8D7840097CA9D /* MissionListView.swift */; };
+		5D72EF2D2DD8D79E0097CA9D /* MissionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EF2C2DD8D79E0097CA9D /* MissionDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		5D72EEE32DD8B7C40097CA9D /* MissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionsView.swift; sourceTree = "<group>"; };
 		5D72EEEF2DD8BD640097CA9D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5D72EEF12DD8C8F70097CA9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5D72EF2A2DD8D7840097CA9D /* MissionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListView.swift; sourceTree = "<group>"; };
+		5D72EF2C2DD8D79E0097CA9D /* MissionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +180,8 @@
 				5D72EEE12DD8B7C40097CA9D /* EditPointsList.swift */,
 				5D72EEE22DD8B7C40097CA9D /* MapView.swift */,
 				5D72EEE32DD8B7C40097CA9D /* MissionsView.swift */,
+				5D72EF2A2DD8D7840097CA9D /* MissionListView.swift */,
+				5D72EF2C2DD8D79E0097CA9D /* MissionDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -319,7 +325,9 @@
 				5D72EEB12DD8B10D0097CA9D /* DronMissionsAppApp.swift in Sources */,
 				5D72EEEA2DD8B7C40097CA9D /* EditPointsList.swift in Sources */,
 				5D72EEEC2DD8B7C40097CA9D /* MissionsView.swift in Sources */,
+				5D72EF2B2DD8D7840097CA9D /* MissionListView.swift in Sources */,
 				5D72EEEB2DD8B7C40097CA9D /* MapView.swift in Sources */,
+				5D72EF2D2DD8D79E0097CA9D /* MissionDetailView.swift in Sources */,
 				5D72EEE92DD8B7C40097CA9D /* EditMissionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

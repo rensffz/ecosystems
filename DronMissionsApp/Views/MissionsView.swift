@@ -3,12 +3,12 @@ import SwiftUI
 struct MissionsView: View {
     @StateObject var missionManager = MissionManager()
     @State private var showingAddMission = false
-    
+
     var body: some View {
         NavigationView {
             List {
                 ForEach(missionManager.missions) { mission in
-                    NavigationLink(destination: EditMissionView(mission: mission, manager: missionManager)) {
+                    NavigationLink(destination: MissionDetailView(manager: missionManager, mission: mission)) {
                         Text(mission.name)
                     }
                 }
@@ -28,3 +28,4 @@ struct MissionsView: View {
         }
     }
 }
+

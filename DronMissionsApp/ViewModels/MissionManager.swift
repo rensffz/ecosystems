@@ -31,4 +31,11 @@ class MissionManager: ObservableObject {
             missions = decoded
         }
     }
+    
+    func updateMission(original: Mission, newName: String, newPoints: [CLLocationCoordinate2D]) {
+        if let index = missions.firstIndex(where: { $0.id == original.id }) {
+            missions[index] = Mission(id: original.id, name: newName, points: newPoints)
+        }
+    }
+
 }
