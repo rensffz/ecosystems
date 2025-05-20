@@ -13,6 +13,8 @@ struct AddMissionView: View {
     @State private var cameraPosition = MapCameraPosition.region(
         MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 55.75, longitude: 37.62),
                            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)))
+    @State private var selectedPointIndex: Int? = nil
+    @Namespace private var annotationNamespace
 
     private var trimmedName: String {
         missionName.trimmingCharacters(in: .whitespaces)
@@ -44,16 +46,55 @@ struct AddMissionView: View {
                     MapReader { proxy in
                         ZStack {
                             Map(position: $cameraPosition, interactionModes: isAddingPoint ? [] : [.all]) {
-                                ForEach(points) { coord in
+                                ForEach(Array(points.enumerated()), id: \.offset) { index, coord in
                                     Annotation("", coordinate: coord) {
-                                        Image(systemName: "mappin.circle.fill")
-                                            .foregroundColor(.red)
+                                        Button(action: {
+                                            selectedPointIndex = index
+                                            withAnimation {
+                                                cameraPosition = .region(MKCoordinateRegion(
+                                                    center: coord,
+                                                    span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                                                ))
+                                            }
+                                        }) {
+                                            Image(systemName: "mappin.circle.fill")
+                                                .resizable()
+                                                .frame(width: selectedPointIndex == index ? 40 : 24,
+                                                       height: selectedPointIndex == index ? 40 : 24)
+                                                .foregroundColor(selectedPointIndex == index ? .blue : .red)
+                                                .shadow(radius: selectedPointIndex == index ? 6 : 0)
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
                                     }
                                 }
+
                             }
                             .frame(height: 300)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .shadow(radius: 4)
+                            
+                            if let selectedIndex = selectedPointIndex {
+                                VStack {
+                                    Spacer()
+                                    HStack {
+                                        Spacer()
+                                        Button(action: {
+                                            points.remove(at: selectedIndex)
+                                            selectedPointIndex = nil
+                                        }) {
+                                            Label("Удалить точку", systemImage: "trash")
+                                                .padding()
+                                                .background(Color.red)
+                                                .foregroundColor(.white)
+                                                .cornerRadius(10)
+                                                .shadow(radius: 5)
+                                        }
+                                        .padding()
+                                    }
+                                }
+                                .transition(.move(edge: .bottom).combined(with: .opacity))
+                            }
+
 
                             if isAddingPoint {
                                 Color.black.opacity(0.001)
@@ -104,18 +145,41 @@ struct AddMissionView: View {
                     }
                 }
                 .padding(.horizontal)
-
-                // Точки маршрута
+                
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Точки маршрута")
                         .font(.headline)
-                    EditPointsList(points: $points)
+                        .padding(.bottom, 4)
 
-                    if points.isEmpty {
-                        Text("Добавьте хотя бы одну точку на карту")
-                            .foregroundColor(.red)
-                            .font(.caption)
+                    ForEach(Array(points.enumerated()), id: \.offset) { index, point in
+                        Button(action: {
+                            selectedPointIndex = index
+                            withAnimation {
+                                cameraPosition = .region(MKCoordinateRegion(
+                                    center: point,
+                                    span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                                ))
+                            }
+                        }) {
+                            HStack {
+                                Image(systemName: "location.fill")
+                                    .foregroundColor(.blue)
+                                Text("Точка \(index + 1): \(point.latitude, specifier: "%.6f"), \(point.longitude, specifier: "%.6f")")
+                                    .font(.subheadline)
+                                Spacer()
+                            }
+                            .padding(.vertical, 6)
+                            .padding(.horizontal)
+                            .background(selectedPointIndex == index ? Color.blue.opacity(0.2) : Color(.systemGray6))
+                            .cornerRadius(8)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(selectedPointIndex == index ? Color.blue : .clear, lineWidth: 2)
+                            )
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
+
                 }
                 .padding(.horizontal)
 
@@ -147,6 +211,7 @@ struct AddMissionView: View {
             if let mission = editingMission {
                 missionName = mission.name
                 points = mission.points
+                selectedPointIndex = nil
             }
         }
     }
