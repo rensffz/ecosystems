@@ -18,12 +18,9 @@
 		5D72EEE62DD8B7C40097CA9D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEDC2DD8B7C40097CA9D /* LocationManager.swift */; };
 		5D72EEE72DD8B7C40097CA9D /* MissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEDD2DD8B7C40097CA9D /* MissionManager.swift */; };
 		5D72EEE82DD8B7C40097CA9D /* AddMissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEDF2DD8B7C40097CA9D /* AddMissionView.swift */; };
-		5D72EEE92DD8B7C40097CA9D /* EditMissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEE02DD8B7C40097CA9D /* EditMissionView.swift */; };
-		5D72EEEA2DD8B7C40097CA9D /* EditPointsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEE12DD8B7C40097CA9D /* EditPointsList.swift */; };
 		5D72EEEB2DD8B7C40097CA9D /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEE22DD8B7C40097CA9D /* MapView.swift */; };
 		5D72EEEC2DD8B7C40097CA9D /* MissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EEE32DD8B7C40097CA9D /* MissionsView.swift */; };
 		5D72EEF02DD8BD640097CA9D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5D72EEEF2DD8BD640097CA9D /* .gitignore */; };
-		5D72EF2B2DD8D7840097CA9D /* MissionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EF2A2DD8D7840097CA9D /* MissionListView.swift */; };
 		5D72EF2D2DD8D79E0097CA9D /* MissionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D72EF2C2DD8D79E0097CA9D /* MissionDetailView.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,13 +56,10 @@
 		5D72EEDC2DD8B7C40097CA9D /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5D72EEDD2DD8B7C40097CA9D /* MissionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionManager.swift; sourceTree = "<group>"; };
 		5D72EEDF2DD8B7C40097CA9D /* AddMissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMissionView.swift; sourceTree = "<group>"; };
-		5D72EEE02DD8B7C40097CA9D /* EditMissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMissionView.swift; sourceTree = "<group>"; };
-		5D72EEE12DD8B7C40097CA9D /* EditPointsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPointsList.swift; sourceTree = "<group>"; };
 		5D72EEE22DD8B7C40097CA9D /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		5D72EEE32DD8B7C40097CA9D /* MissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionsView.swift; sourceTree = "<group>"; };
 		5D72EEEF2DD8BD640097CA9D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5D72EEF12DD8C8F70097CA9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		5D72EF2A2DD8D7840097CA9D /* MissionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListView.swift; sourceTree = "<group>"; };
 		5D72EF2C2DD8D79E0097CA9D /* MissionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,11 +170,8 @@
 			isa = PBXGroup;
 			children = (
 				5D72EEDF2DD8B7C40097CA9D /* AddMissionView.swift */,
-				5D72EEE02DD8B7C40097CA9D /* EditMissionView.swift */,
-				5D72EEE12DD8B7C40097CA9D /* EditPointsList.swift */,
 				5D72EEE22DD8B7C40097CA9D /* MapView.swift */,
 				5D72EEE32DD8B7C40097CA9D /* MissionsView.swift */,
-				5D72EF2A2DD8D7840097CA9D /* MissionListView.swift */,
 				5D72EF2C2DD8D79E0097CA9D /* MissionDetailView.swift */,
 			);
 			path = Views;
@@ -323,12 +314,9 @@
 				5D72EEE52DD8B7C40097CA9D /* Mission.swift in Sources */,
 				5D72EEB32DD8B10D0097CA9D /* ContentView.swift in Sources */,
 				5D72EEB12DD8B10D0097CA9D /* DronMissionsAppApp.swift in Sources */,
-				5D72EEEA2DD8B7C40097CA9D /* EditPointsList.swift in Sources */,
 				5D72EEEC2DD8B7C40097CA9D /* MissionsView.swift in Sources */,
-				5D72EF2B2DD8D7840097CA9D /* MissionListView.swift in Sources */,
 				5D72EEEB2DD8B7C40097CA9D /* MapView.swift in Sources */,
 				5D72EF2D2DD8D79E0097CA9D /* MissionDetailView.swift in Sources */,
-				5D72EEE92DD8B7C40097CA9D /* EditMissionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
